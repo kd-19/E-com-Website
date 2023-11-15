@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     email:String,
     contact:String,
     totalPrice:Number,
-    userId:Number
+    userId:String
 });
 
 const orderModel = mongoose.model('Orders',orderSchema);

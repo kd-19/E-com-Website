@@ -30,8 +30,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//Create Product
-router.post('/create', async (req, res) => {
+//Add Product
+router.post('/add', async (req, res) => {
   try {
     const newProduct = new Products(req.body);
     const product = await newProduct.save();
