@@ -1,38 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const authMiddleware = require('../Middlewares/authMiddleware');
+
 const Orders = require('../models/orderModel');
 
+const Control = require('../Controllers/orderController');
 
-router.post('/', async (req, res) => {
-    const { address,email,contact,totalPrice,userId } = req.body;
-  
-    try {
-      const orderData = await Orders.create({
-        address,
-        email,
-        contact,
-        totalPrice,
-        userId
-      });
-  
-      res.status(201).json(orderData);
-    } catch (err) {
-      res.status(400).json({ error: err.message });
-    }
-  });
+router.post('/', authMiddleware.verifyToken ,Control.CreateOrder);
 
-
-  router.get('/get', async (req, res) => {
-    try {
-      const order = await Orders.find({});
-      res.status(200).json(order);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  });
-
-
-
+router.get('/get', authMiddleware.verifyToken , Control.getOrder);
 
 module.exports=router;
